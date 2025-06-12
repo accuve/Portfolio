@@ -34,7 +34,7 @@ This portfolio website is built and styled using:
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/accuve/portfolio.git
-    cd anup_portfolio
+    cd portfolio
     ```
 2.  **Install Jekyll and Bundler (if not already installed):**
     Refer to the official Jekyll installation guide for your operating system: [https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)
