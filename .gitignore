@@ -1,0 +1,40 @@
+# Existing User Rules:
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Temporary files
+*.log
+# *.cache # Covered by .jekyll-cache/ below more specifically
+*.tmp
+
+# Sensitive data
+.env
+*.secret
+
+# R/Python specific
+.Rhistory
+.RData
+*.pyc
+__pycache__/
+.Rproj.user
+
+# Added Jekyll & Bundler specific rules:
+
+# Jekyll build output
+_site/
+
+# Jekyll specific cache/metadata
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler files
+.bundle/
+vendor/ # Standard path for gems installed with --path vendor/bundle
+
+# Gemfile.lock is usually committed to ensure reproducible builds,
+# especially for GitHub Pages. If you decide NOT to commit it,
+# add "Gemfile.lock" here. For now, we assume it WILL be committed.

@@ -1,0 +1,45 @@
+# _config.yml
+
+# Site Meta Settings
+title: "Anup Acharya | Data Science Portfolio" # Used by jekyll-seo-tag and as fallback title
+author_name: "CA. Anup Acharya" # For display in header/footer
+email: "longlivenepal48@gmail.com"
+description: "Professional data science portfolio of Anup Acharya, showcasing data analysis, big data, and Kaggle projects. Expertise in financial analytics, R, Python, and SQL."
+lang: "en" # Site-wide language (BCP 47 tag)
+
+# URL and BaseURL settings - CRITICAL for GitHub Pages
+# Live site: https://longlivenepal48.github.io/portfolio/
+url: "https://longlivenepal48.github.io"
+baseurl: "/portfolio"
+
+# GitHub User/Repo (Optional, can be used by plugins)
+github_username: "longlivenepal48"
+
+# Social Profiles (Just usernames/IDs as needed by links)
+linkedin_username: "ca-anup-acharya-761737ba"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM # Use GitHub Flavored Markdown for better compatibility
+  hard_wrap: false
+  syntax_highlighter_opts:
+    disable: true # If you're not using Jekyll's default syntax highlighting
+
+theme: null # We are using custom styling
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - README.md
+  - LICENSE.md # If you have one
+  - "*.Rmd" # Uncomment if Rmd files are ONLY for rendering HTML separately

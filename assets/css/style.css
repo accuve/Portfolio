@@ -1,0 +1,356 @@
+/* style.css - Portfolio Overhaul v3.0.6 - FINAL FULL VERSION */
+
+/* --------------------
+ * Table of Contents
+ * --------------------
+ * 1.  CSS Variables & Font Imports
+ * 2.  Global Resets & Base Styles
+ * 3.  Typography (Global P & LI Justification, Custom Bullets, Hyphenation)
+ * 4.  Layout & Container
+ * 5.  Header & Navigation (Desktop & Hamburger Mobile)
+ * 6.  Main Content & Page Titles (Left-aligned)
+ * 7.  Project Cards & Grid
+ * 8.  Featured Sections (Homepage)
+ * 9.  Introduction Page Specifics
+ * 10. Footer (Slimmed & Repositioned Button)
+ * 11. Utility Classes
+ * 12. Accessibility (Skip Links, Focus Styles)
+ * 13. Responsive Design (Focus on Hamburger Mobile Nav)
+ * NO DARK MODE SECTION
+ * --------------------
+ */
+
+/* --------------------
+ * 1. CSS Variables & Font Imports
+ * --------------------
+ */
+:root {
+  /* Color Palette - Professional, Modern, with a touch of warmth */
+  --color-primary: #1D3557;        /* Deep Blue */
+  --color-secondary: #457B9D;      /* Medium Blue/Teal */
+  --color-accent: #E63946;         /* Vibrant Red */
+  --color-light-accent: #F1FAEE;   /* Very Light Off-White/Pale Blue */
+  --color-warm-accent: #A8DADC;    /* Light Aqua */
+
+  --color-text-base: #2c3e50;
+  --color-text-muted: #7f8c8d;
+  --color-text-on-dark: #f8f9fa;
+  --color-background: #f7f9fb;
+  --color-surface: #ffffff;
+  --color-border: #dfe6e9;
+
+  /* Fonts (Ensure these are linked in default.html: Inter and Roboto Slab) */
+  --font-family-heading: 'Roboto Slab', serif;
+  --font-family-body: 'Inter', sans-serif;
+  --font-base-size: 16px;
+  --font-line-height-body: 1.7;
+  --font-line-height-heading: 1.3;
+
+  /* Sizing & Spacing */
+  --spacing-unit: 1rem;
+  --container-max-width: 1140px;
+  --border-radius: 6px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-base: all 0.3s ease-in-out;
+  --transition-fast: all 0.2s ease-in-out;
+
+  /* RGB versions */
+  --color-secondary-rgb: 69, 123, 157;
+}
+
+
+/* --------------------
+ * 2. Global Resets & Base Styles
+ * --------------------
+ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: var(--font-base-size); scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body { font-family: var(--font-family-body); line-height: var(--font-line-height-body); color: var(--color-text-base); background-color: var(--color-background); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: flex; flex-direction: column; min-height: 100vh; }
+body.no-scroll { overflow: hidden; } /* For when mobile menu is open via JS */
+img, svg { max-width: 100%; height: auto; vertical-align: middle; }
+
+/* --------------------
+ * 3. Typography
+ * --------------------
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--color-primary);
+  line-height: var(--font-line-height-heading);
+  margin-bottom: calc(var(--spacing-unit) * 0.75);
+  font-weight: 700;
+  text-align: left; /* Default headings to left */
+}
+h1 { font-size: 2.5rem; margin-bottom: var(--spacing-unit); }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+  margin-bottom: var(--spacing-unit);
+  text-align: justify;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+a { color: var(--color-secondary); text-decoration: none; transition: var(--transition-fast); }
+a:hover, a:focus { color: var(--color-accent); text-decoration: underline; }
+
+/* General list styling */
+ul, ol {
+  margin-bottom: var(--spacing-unit);
+}
+
+/* Unordered lists in main content - custom bullets */
+.main-content-area ul:not(.nav-menu) {
+  list-style-type: none; /* Remove default browser bullets */
+  padding-left: calc(var(--spacing-unit) * 0.5); /* Base padding for the list itself */
+}
+
+.main-content-area ul:not(.nav-menu) > li {
+  position: relative; /* For ::before positioning */
+  padding-left: calc(var(--spacing-unit) * 1.5); /* Space for the custom bullet + text indent */
+  margin-bottom: calc(var(--spacing-unit) * 0.45); /* Slightly increased for better spacing */
+  text-align: justify;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.main-content-area ul:not(.nav-menu) > li::before {
+  content: "▸"; /* Custom bullet symbol */
+  color: var(--color-secondary);
+  font-weight: bold;
+  position: absolute;
+  left: 0.1em; /* Position bullet within the padding */
+  top: 0.05em; /* Fine-tune vertical alignment */
+  font-size: 1.1em; /* Slightly larger bullet */
+}
+
+/* Ordered lists in main content - default numbering */
+.main-content-area ol {
+  padding-left: calc(var(--spacing-unit) * 1.8); /* Standard padding for numbered lists */
+}
+
+.main-content-area ol > li {
+  margin-bottom: calc(var(--spacing-unit) * 0.35);
+  text-align: justify;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+strong { font-weight: 600; }
+
+blockquote {
+  border-left: 4px solid var(--color-warm-accent);
+  padding: var(--spacing-unit);
+  margin: var(--spacing-unit) 0;
+  background-color: var(--color-light-accent);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+blockquote p {
+  margin-bottom: 0;
+  /* Inherits text-align: justify from global 'p' rule.
+     Ensure hyphens are off here too for full compatibility. */
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+code, pre { font-family: 'SF Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.9em; background-color: #e9ecef; border-radius: var(--border-radius); color: #212529; }
+pre { padding: var(--spacing-unit); overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; border: 1px solid var(--color-border); text-align: left; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; }
+code { padding: 0.2em 0.4em; }
+hr { border: 0; border-top: 1px solid var(--color-border); margin: calc(var(--spacing-unit) * 2.5) 0; }
+
+/* --------------------
+ * 4. Layout & Container
+ * --------------------
+ */
+.container { width: 90%; max-width: var(--container-max-width); margin-left: auto; margin-right: auto; }
+
+/* --------------------
+ * 5. Header & Navigation (Hamburger Mobile Nav)
+ * --------------------
+ */
+.site-header { background-color: var(--color-surface); padding: calc(var(--spacing-unit) * 0.75) 0; border-bottom: 1px solid var(--color-border); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+.header-content-wrapper { display: flex; justify-content: space-between; align-items: center; }
+.site-branding { margin-right: auto; }
+.site-branding .site-title-link { font-family: var(--font-family-heading); font-size: 1.5rem; font-weight: 700; color: var(--color-primary); text-decoration: none; transition: var(--transition-fast); }
+.site-branding .site-title-link:hover { color: var(--color-secondary); }
+.site-branding .site-logo-image { max-height: 40px; width: auto; }
+.site-branding .site-tagline { font-size: 0.75rem; color: var(--color-text-muted); margin-top: -0.15rem; letter-spacing: 0.5px; text-align: left; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; }
+
+.main-navigation .nav-menu { list-style: none; padding-left: 0; margin: 0; display: flex; align-items: center; }
+.main-navigation .nav-menu li { margin-left: calc(var(--spacing-unit) * 0.5); margin-bottom: 0; } /* margin-bottom: 0 is important here */
+.main-navigation .nav-menu a { font-family: var(--font-family-body); font-weight: 600; font-size: 0.85rem; color: var(--color-primary); text-decoration: none; padding: 0.4rem 0.6rem; border-radius: var(--border-radius); transition: var(--transition-base); display: flex; align-items: center; white-space: nowrap; }
+.main-navigation .nav-menu a:hover, .main-navigation .nav-menu a:focus, .main-navigation .nav-menu a.active { background-color: var(--color-secondary); color: var(--color-surface); }
+.main-navigation .nav-menu .nav-icon { margin-right: 0.4em; font-size: 0.9em; line-height: 1; }
+
+.header-social-links { display: flex; align-items: center; margin-left: var(--spacing-unit); }
+.header-social-links .social-icon { color: var(--color-text-muted); font-size: 1.1rem; margin-left: calc(var(--spacing-unit) * 0.75); transition: var(--transition-fast); }
+.header-social-links .social-icon:hover { color: var(--color-secondary); transform: scale(1.1); }
+
+.menu-toggle { display: none; background: transparent; border: none; color: var(--color-primary); font-size: 1.75rem; cursor: pointer; padding: 0.25rem; margin-left: var(--spacing-unit); z-index: 1005; line-height: 1; }
+.menu-toggle .icon-bar { display: block; width: 24px; height: 3px; background-color: var(--color-primary); border-radius: 1px; margin: 5px 0; transition: var(--transition-fast); }
+.menu-toggle.is-active .icon-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-toggle.is-active .icon-bar:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active .icon-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* --------------------
+ * 6. Main Content & Page Titles (Left-aligned)
+ * --------------------
+ */
+.main-content-area { flex-grow: 1; padding: calc(var(--spacing-unit) * 2.5) 0; }
+.page-content > h1:first-child { text-align: left; color: var(--color-primary); font-weight: 800; margin-bottom: calc(var(--spacing-unit) * 1.5); padding-bottom: calc(var(--spacing-unit) * 0.5); position: relative; border-bottom: 3px solid var(--color-accent); }
+.page-content > h1:first-child::after { content: none; }
+/* .page-intro-paragraph inherits 'p' styles for justification and hyphens */
+.page-intro-paragraph { font-size: 1.05rem; color: var(--color-text-muted); margin-top: calc(var(--spacing-unit) * 0.5); margin-bottom: calc(var(--spacing-unit) * 2); line-height: 1.7; }
+.section-intro { font-size: 1.1rem; color: var(--color-text-muted); text-align: center; max-width: 700px; margin: 0 auto calc(var(--spacing-unit) * 2.5); line-height: 1.8; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; } /* Explicitly no hyphens for centered text */
+
+/* --------------------
+ * 7. Project Cards & Grid
+ * --------------------
+ */
+.project-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: calc(var(--spacing-unit) * 1.75); }
+a.project-box-link { display: block; text-decoration: none; color: inherit; border-radius: var(--border-radius); transition: var(--transition-base); box-shadow: var(--shadow-md); }
+a.project-box-link:hover, a.project-box-link:focus-within { transform: translateY(-6px); box-shadow: var(--shadow-lg); outline: none; }
+a.project-box-link:focus-within { box-shadow: var(--shadow-lg), 0 0 0 3px var(--color-secondary); }
+.project-box { background-color: var(--color-surface); border-radius: var(--border-radius); padding: calc(var(--spacing-unit) * 1.25); height: 100%; display: flex; flex-direction: column; border: 1px solid var(--color-border); }
+.project-box .project-number { font-size: 0.75rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; text-align: left; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none;}
+.project-header { display: flex; align-items: center; gap: var(--spacing-unit); margin-bottom: 0.75rem; }
+.project-header img { width: 48px; height: 48px; object-fit: contain; border-radius: 4px; padding: 0.25rem; background-color: var(--color-light-accent); }
+.project-header-text h3 { font-size: 1.2rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.1rem; line-height: 1.2; text-align: left; }
+.project-header-text .tools-used, .project-header-text .dataset-title { font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.3; text-align: left; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none;}
+/* .project-box .project-objective inherits 'p' styles for justification and hyphens if it's a <p> tag.
+   If it can be other elements, ensure justification and hyphen control is directly applied or inherited. */
+.project-box .project-objective { font-size: 0.95rem; color: var(--color-text-base); margin-bottom: var(--spacing-unit); flex-grow: 1; /* text-align & hyphens inherited from 'p' if it's a p-tag */ }
+.project-box .project-objective strong { font-weight: 600; color: var(--color-primary); }
+.project-box .project-key-result { font-size: 0.9rem; font-weight: 600; color: var(--color-secondary); margin-top: auto; padding-top: var(--spacing-unit); border-top: 1px dashed var(--color-border); }
+.project-box .project-details-indicator { font-size: 0.85rem; font-weight: 600; color: var(--color-accent); text-align: right; margin-top: var(--spacing-unit); display: block; text-decoration: none; transition: var(--transition-fast); -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none;}
+a.project-box-link:hover .project-details-indicator { transform: translateX(4px); }
+div.project-box.no-link { box-shadow: var(--shadow-md); transition: var(--transition-base); }
+div.project-box.no-link:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+/* --------------------
+ * 8. Featured Sections (Homepage)
+ * --------------------
+ */
+.featured-sections-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2); }
+a.featured-section { display: block; padding: calc(var(--spacing-unit) * 1.5); background-color: var(--color-surface); border-radius: var(--border-radius); box-shadow: var(--shadow-md); text-decoration: none; color: var(--color-text-base); transition: var(--transition-base); border-left: 5px solid transparent; }
+a.featured-section:hover, a.featured-section:focus-within { transform: translateY(-5px) translateX(5px); box-shadow: var(--shadow-lg); border-left-color: var(--color-accent); outline: none; }
+a.featured-section:focus-within { box-shadow: var(--shadow-lg), 0 0 0 2px var(--color-secondary); }
+.featured-section h3 { font-size: 1.3rem; color: var(--color-primary); margin-bottom: 0.5rem; display: flex; align-items: center; text-align: left; }
+.featured-section h3 i { color: var(--color-secondary); margin-right: 0.5em; font-size: 1.2em; }
+/* .featured-section p inherits 'p' styles for justification and hyphens */
+.featured-section p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
+.portfolio-sections-overview { margin-bottom: calc(var(--spacing-unit) * 2.5); padding: var(--spacing-unit) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.portfolio-sections-overview > div { margin-bottom: calc(var(--spacing-unit) * 1.5); }
+.portfolio-sections-overview > div:last-child { margin-bottom: 0; }
+.portfolio-sections-overview h3 { font-size: 1.3rem; margin-bottom: calc(var(--spacing-unit) * 0.5); text-align: left; }
+.portfolio-sections-overview h3 a { color: var(--color-primary); text-decoration: none; transition: var(--transition-fast); }
+.portfolio-sections-overview h3 a:hover { color: var(--color-accent); text-decoration: underline; }
+.portfolio-sections-overview h3 i { margin-right: 0.5em; color: var(--color-secondary); }
+/* .portfolio-sections-overview p inherits 'p' styles for justification and hyphens */
+.portfolio-sections-overview p { font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-left: 2.0em; }
+
+
+/* --------------------
+ * 9. Introduction Page Specifics
+ * --------------------
+ */
+.profile-header { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2); background-color: var(--color-light-accent); padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); }
+.profile-image { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--color-surface); box-shadow: var(--shadow-md); }
+.profile-info h2 { font-size: 2rem; margin-bottom: 0.1rem; text-align: left; }
+/* .profile-info .tagline inherits 'p' styles for justification and hyphens if it's a <p> */
+.profile-info .tagline { font-size: 1rem; color: var(--color-secondary); font-weight: 500; margin-bottom: 0.75rem; /* hyphens inherited or explicitly off if not justified */ }
+.introduction-contact-icons { display: flex; gap: var(--spacing-unit); }
+.introduction-contact-icons img { width: 28px; height: 28px; opacity: 0.7; transition: var(--transition-fast); }
+.introduction-contact-icons a:hover img { opacity: 1; transform: scale(1.1); }
+/* .intro-pitch inherits 'p' styles for justification and hyphens */
+.intro-pitch { font-size: 1.1rem; line-height: 1.8; color: var(--color-text-base); padding: calc(var(--spacing-unit) * 1.25); margin: calc(var(--spacing-unit)*2) 0; border-left: 5px solid var(--color-accent); background-color: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+
+
+/* --------------------
+ * 10. Footer
+ * --------------------
+ */
+.site-footer { background-color: var(--color-primary); color: var(--color-text-on-dark); padding: calc(var(--spacing-unit) * 1.2) 0; margin-top: auto; font-size: 0.75rem; }
+.footer-content-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: calc(var(--spacing-unit) * 0.5); }
+.footer-copyright { margin-right: auto; }
+.footer-copyright p { margin: 0; text-align: left; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; }
+.footer-back-button { margin-left: auto; }
+.footer-back-button button#backBtn { background-color: var(--color-secondary); color: var(--color-surface); border: none; padding: 0.35em 0.8em; border-radius: var(--border-radius); font-weight: 500; font-size: 0.75rem; cursor: pointer; transition: var(--transition-base); }
+.footer-back-button button#backBtn:hover { background-color: var(--color-accent); transform: translateY(-1px); }
+
+/* --------------------
+ * 11. Utility Classes
+ * --------------------
+ */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.text-center { text-align: center !important; -webkit-hyphens: none !important; -moz-hyphens: none !important; -ms-hyphens: none !important; hyphens: none !important; }
+.text-left { text-align: left !important; -webkit-hyphens: none !important; -moz-hyphens: none !important; -ms-hyphens: none !important; hyphens: none !important; }
+.skip-to-content-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; z-index: -999; background-color: var(--color-accent); color: var(--color-surface); padding: 1rem; text-decoration: none; font-weight: bold; }
+.skip-to-content-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; z-index: 99999; border-radius: var(--border-radius); }
+
+/* --------------------
+ * 12. Accessibility (Focus Styles)
+ * --------------------
+ */
+:focus-visible { outline: 2px solid var(--color-secondary); outline-offset: 2px; box-shadow: 0 0 0 4px rgba(var(--color-secondary-rgb), 0.3); }
+a.project-box-link:focus-visible, a.featured-section:focus-visible { outline: none; }
+
+/* --------------------
+ * 13. Responsive Design (NEW HAMBURGER MOBILE NAV STYLING)
+ * --------------------
+ */
+@media (max-width: 900px) {
+  .menu-toggle { display: block; }
+  .main-navigation { order: 1; margin-left: auto; }
+  .header-social-links { display: none; }
+  .site-branding { margin-right: auto; flex-shrink: 0; }
+  .header-content-wrapper { position: relative; }
+  .main-navigation .nav-menu { display: none; flex-direction: column; position: absolute; top: calc(100% + 1px); left: 0; right: 0; width: 100%; background-color: var(--color-surface); box-shadow: var(--shadow-md); padding: var(--spacing-unit) 0; border-top: 1px solid var(--color-border); margin:0; z-index: 999; }
+  .main-navigation .nav-menu.is-active { display: flex; }
+  .main-navigation .nav-menu li { margin-left: 0; width: 100%; } /* margin-bottom for li is handled by general li or specific .main-content-area li */
+  .main-navigation .nav-menu a { display: flex; align-items: center; padding: calc(var(--spacing-unit) * 0.9) var(--spacing-unit); text-align: left; border-bottom: 1px solid var(--color-light-accent); border-radius: 0; width: 100%; font-size: 1rem; font-weight: 500; }
+  .main-navigation .nav-menu li:last-child a { border-bottom: none; }
+  .main-navigation .nav-menu .nav-icon { font-size: 1.1em; width: 1.8em; text-align: center; margin-right: 0.75em; color: var(--color-secondary); }
+}
+@media (max-width: 768px) {
+  .container { width: 95%; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  .page-content > h1:first-child { font-size: 2.25rem; }
+  .profile-header { flex-direction: column; text-align: center; }
+  .profile-info { text-align: center; } /* This will center h2 and p.tagline within */
+  .profile-info .tagline { text-align: center; /* Ensure tagline itself is centered if it's multiline */ }
+  .introduction-contact-icons { justify-content: center; }
+  .footer-content-wrapper { flex-direction: column; text-align: center; gap: calc(var(--spacing-unit) * 0.75); }
+  .footer-copyright { order: 2; width: 100%; margin-bottom: 0; margin-right: 0;}
+  .footer-copyright p { text-align: center; } /* Center footer copyright text */
+  .footer-back-button { order: 1; width: 100%; display: flex; justify-content: center; margin-left: 0;}
+  .footer-navigation { order: 3; }
+}
+@media (max-width: 480px) {
+  :root { --font-base-size: 15px; }
+  .site-branding .site-title-link { font-size: 1.5rem; }
+  .site-branding .site-tagline { font-size: 0.75rem; text-align: left; /* Keep tagline left-aligned on small screens even if profile-info is centered */ }
+  .project-header img { width: 40px; height: 40px; }
+  .project-header-text h3 { font-size: 1.1rem; }
+  .main-navigation .nav-menu a { font-size: 0.95rem; padding: 0.7rem var(--spacing-unit); }
+  .main-navigation .nav-menu .nav-icon { width: 1.6em; font-size: 1em; }
+}
+
+/* NO DARK MODE STYLES */

@@ -1,0 +1,12 @@
+
+	One Sample t-test
+
+data:  bac_stock_complete$daily_return
+t = 1.1631, df = 9866, p-value = 0.2448
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.0002269724  0.0008893461
+sample estimates:
+   mean of x 
+0.0003311869 
+

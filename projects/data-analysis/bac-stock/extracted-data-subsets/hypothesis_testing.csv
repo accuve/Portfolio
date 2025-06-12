@@ -1,0 +1,2 @@
+estimate,statistic,p.value,parameter,conf.low,conf.high,method,alternative
+3.311868773507449e-4,1.16309813286302,0.24481781972119274,9866,-2.269723842124558e-4,8.893461389139457e-4,One Sample t-test,two.sided

@@ -1,0 +1,746 @@
+---
+title: "Bank of America (BAC) Stock Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# Set working directory to the project location
+# Uncomment and modify this line to match your specific working directory
+# setwd("/Users/creation/Library/CloudStorage/GoogleDrive-longlivenepal48@gmail.com/My Drive/1. Anup Acharya/Learning/R Training/06. BAC Stock/bac-stock")
+```
+
+# Introduction
+
+This analysis explores historical stock data for Bank of America (BAC) spanning from 1978 to 2025. Through this comprehensive examination, we aim to understand the stock's behavior, identify patterns, model volatility, and develop predictive models that might provide insights for investment decisions.
+
+The analysis follows a structured approach:
+
+1. **Data Preparation**: Importing, cleaning, and validating the raw data
+2. **Feature Engineering**: Creating derived metrics that capture important stock characteristics
+3. **Statistical Analysis**: Examining the statistical properties of the stock price and returns
+4. **Time Series Analysis**: Analyzing temporal patterns and testing for stationarity
+5. **Visualization**: Creating informative visual representations of the data
+6. **Predictive Modeling**: Developing models to forecast future price movements
+
+## Required Libraries
+
+We begin by loading all the necessary libraries that will support our analysis.
+
+```{r libraries}
+# Required libraries
+library(dplyr)        # For data manipulation
+library(lubridate)    # For date handling
+library(zoo)          # For time series functions
+library(ggplot2)      # For static visualizations
+library(xts)          # For extensible time series
+library(quantmod)     # For financial charting
+library(plotly)       # For interactive visualizations
+library(tseries)      # For time series analysis
+library(forecast)     # For forecasting
+library(rugarch)      # For GARCH models
+library(readr)        # For reading CSV files
+library(visdat)       # For visualizing data
+library(TTR)          # For technical trading rules
+library(DescTools)    # For descriptive statistics
+library(randomForest) # For machine learning
+library(PerformanceAnalytics) # For performance and risk analysis
+```
+
+# Data Import and Preparation
+
+## Data Import
+
+We import the raw BAC stock data from a CSV file.
+
+```{r data_import}
+# Data Import
+# Using the full file path as in the original code
+bac_stock_original <- read_csv("/Users/creation/Library/CloudStorage/GoogleDrive-longlivenepal48@gmail.com/My Drive/1. Anup Acharya/Learning/R Training/06. BAC Stock/bac-stock/dataset_by_muhammad_atif_latif_kaggle/BAC_1978-03-01_2025-04-17.csv")
+
+# View structure of the data
+str(bac_stock_original)
+```
+
+## Data Preparation
+
+### Date Formatting
+
+First, we properly format the date column and ensure all price columns are numeric. This ensures consistency in date handling across our analysis.
+
+```{r date_formatting}
+# Convert date column to proper Date type and ensure price columns are numeric
+bac_stock_str_changed <- bac_stock_original %>% 
+  mutate(
+    date = as.Date(substr(date, 1, 10)), # Convert to date, strip timezone
+    open = as.numeric(open),
+    high = as.numeric(high),
+    low = as.numeric(low),
+    close = as.numeric(close)
+  )
+
+str(bac_stock_str_changed)
+```
+
+## Data Quality Check
+
+### Missing Values
+
+We check for missing values in the dataset. Missing values can significantly impact our analysis and must be handled appropriately.
+
+```{r missing_values_check}
+# Visualize missing values
+vis_miss(bac_stock_str_changed)
+```
+
+**Rationale:** Identifying missing values is crucial for data integrity. The visual shows that opening prices (open) have significant missingness, which needs addressing before further analysis.
+
+#### Converting Zeros to NA
+
+Zero values in the 'open' column are not valid price data and are converted to NA. Stock prices are never zero during trading hours, so these values represent data collection errors.
+
+```{r convert_zeros_to_na}
+# Convert 0 values in 'open' column to NA
+bac_stock_str_changed_na <- bac_stock_str_changed %>% 
+  mutate(open = na_if(open, 0))
+
+# Check missing values after conversion
+vis_miss(bac_stock_str_changed_na)
+```
+
+**Finding:** Converting zeros to NA makes the missing data pattern more evident, showing a significant proportion of missing opening prices.
+
+#### Imputing Missing Values
+
+We use Last Observation Carried Forward (LOCF) to impute missing opening prices, followed by linear approximation for any remaining gaps.
+
+```{r impute_missing_values}
+# Impute missing NA values using LOCF
+bac_stock_str_changed_na_impute_locf <- bac_stock_str_changed_na %>% 
+  arrange(date) %>% # Sort by date in ascending order
+  mutate(open = na.locf(open, na.rm = FALSE))
+
+# Use linear approximation for remaining NA values
+bac_stock_str_changed_na_impute_locf$open <- na.approx(bac_stock_str_changed_na_impute_locf$open, rule = 2)
+
+# Check for remaining NA values
+vis_miss(bac_stock_str_changed_na_impute_locf)
+```
+
+**Rationale:** LOCF is appropriate for financial time series as it assumes persistence in market conditions. Linear approximation fills any remaining gaps by interpolating between available values, which is reasonable for short gaps in stock price data.
+
+### Duplicate Check
+
+We check for duplicate date entries in the dataset, as these would represent data errors.
+
+```{r duplicate_check}
+# Check for duplicate dates
+duplicated_rows <- sum(duplicated(bac_stock_str_changed_na_impute_locf$date))
+cat("Number of duplicate dates:", duplicated_rows)
+```
+
+**Finding:** No duplicate dates were found, which indicates good data integrity in terms of the time series structure.
+
+### Outlier Detection and Handling
+
+We use the Interquartile Range (IQR) method to identify and remove outliers.
+
+```{r outlier_detection}
+# Calculate Q1, Q3, and IQR
+Q1 <- quantile(bac_stock_str_changed_na_impute_locf$close, 0.25, na.rm = TRUE)
+Q3 <- quantile(bac_stock_str_changed_na_impute_locf$close, 0.75, na.rm = TRUE)
+IQR_val <- Q3 - Q1
+
+# Remove outliers using IQR method
+bac_stock_str_changed_na_impute_locf_outliers <- bac_stock_str_changed_na_impute_locf %>% 
+  filter(close >= (Q1 - 1.5 * IQR_val) & close <= (Q3 + 1.5 * IQR_val))
+
+cat("Number of outliers removed:", nrow(bac_stock_str_changed_na_impute_locf) - nrow(bac_stock_str_changed_na_impute_locf_outliers))
+```
+
+**Rationale:** The IQR method is robust to extreme values and helps identify data points that significantly deviate from the normal range. This prevents extreme values from skewing our analysis results.
+
+**Finding:** No outliers were detected using the IQR method, which suggests that the BAC stock price movements, while possibly volatile at times, remain within statistically expected bounds.
+
+**Formula Used**: $Q1 - 1.5 \times IQR \leq x \leq Q3 + 1.5 \times IQR$
+
+**Why This Formula is Used**: The Interquartile Range (IQR) method is a robust statistical technique for identifying outliers in a dataset. By defining boundaries at 1.5 times the IQR below Q1 and above Q3, we identify values that fall outside the expected range of normal data.
+
+**What This Formula Calculates**: This formula establishes lower and upper bounds for acceptable data points. Any value falling outside these bounds is considered an outlier and removed from the analysis to prevent these extreme values from skewing our results and insights.
+
+### Logical Consistency Check
+
+We verify that opening prices are between the day's low and high, and closing prices are also between the day's low and high. This is a fundamental check for OHLC (Open-High-Low-Close) data integrity.
+
+```{r logical_consistency}
+# Check logical consistency of OHLC data
+bac_stock_str_changed_na_impute_locf_outliers_logical <- bac_stock_str_changed_na_impute_locf_outliers %>%
+  filter(open >= low & open <= high & close >= low & close <= high)
+
+cat("Number of logically inconsistent records removed:", 
+    nrow(bac_stock_str_changed_na_impute_locf_outliers) - nrow(bac_stock_str_changed_na_impute_locf_outliers_logical))
+```
+
+**Rationale:** In valid stock data, opening and closing prices must be between the day's low and high prices. Any violation indicates data quality issues.
+
+**Finding:** We identified and removed 2,014 logically inconsistent records, which represents about 17% of the original dataset. This significant number highlights the importance of data validation in financial analysis.
+
+## Clean Data
+
+After all cleaning steps, we create a clean dataset for analysis.
+
+```{r clean_data}
+# Final clean data
+bac_stock_clean <- bac_stock_str_changed_na_impute_locf_outliers_logical
+
+# Show dimensions of the clean dataset
+dim(bac_stock_clean)
+```
+
+**Finding:** After thorough cleaning, our dataset contains 9,868 records with 7 variables, providing a solid foundation for further analysis.
+
+# Feature Engineering
+
+We create derived metrics that will help us better understand the stock's behavior.
+
+## Daily Returns
+
+```{r daily_returns}
+# Calculate daily returns
+bac_stock_clean_returns <- bac_stock_clean %>% 
+  arrange(date) %>% 
+  mutate(
+    daily_return = (close - lag(close)) / lag(close),
+    log_return = log(close / lag(close))
+  )
+```
+
+**Rationale:** Daily returns provide insight into the stock's performance on a day-to-day basis. Simple returns give us percentage changes, while log returns offer better statistical properties for financial time series analysis, including time additivity for multi-period analysis and more symmetrical distribution properties.
+
+**Formula Used**: 
+1. Simple Returns: $R_t = \frac{P_t - P_{t-1}}{P_{t-1}}$
+2. Log Returns: $r_t = \ln(\frac{P_t}{P_{t-1}})$
+
+**Why These Formulas Are Used**: 
+-  Simple returns provide a straightforward percentage change in price.
+
+-  Log returns have better statistical properties for financial time series analysis, including time additivity (multi-period returns can be calculated by summing single-period returns).
+
+**What These Formulas Calculate**: 
+-  The simple daily return gives us the percentage change in price from one day to the next.
+
+-  The log return approximates the simple return for small price changes and has the advantage of being symmetrical (a 10% increase followed by a 10% decrease gives us a net return of approximately 0%).
+
+## Price Range
+
+```{r price_range}
+# Calculate daily price range
+bac_stock_clean_returns_price <- bac_stock_clean_returns %>% 
+  mutate(price_range = high - low)
+```
+
+**Rationale:** The daily price range indicates the volatility within a single trading day. Higher ranges suggest higher intraday volatility and more active trading.
+
+**Formula Used**: $\text{Price Range} = \text{High} - \text{Low}$
+
+**Why This Formula Is Used**: The daily price range indicates the volatility within a single trading day.
+
+**What This Formula Calculates**: It measures the difference between the highest and lowest prices during a trading day, giving us an indication of intraday volatility and trading activity.
+
+## Volatility (Rolling Standard Deviation)
+
+```{r rolling_std_dev}
+# Calculate 7-day rolling standard deviation of log returns
+bac_stock_clean_returns_price_sd <- bac_stock_clean_returns_price %>% 
+  mutate(roll_sd = rollapply(log_return, width = 7, FUN = sd, fill = NA, align = "right"))
+```
+
+**Rationale:** The rolling standard deviation provides a dynamic measure of recent volatility. A 7-day window captures short-term volatility fluctuations while smoothing out daily noise. This helps identify periods of market stress or calm.
+
+**Formula Used**: $\sigma_t = \sqrt{\frac{1}{n-1}\sum_{i=t-n+1}^{t}(r_i - \bar{r})^2}$
+
+**Why This Formula Is Used**: The rolling standard deviation provides a measure of recent volatility over a specified window of time.
+
+**What This Formula Calculates**: It computes the standard deviation of log returns over a 7-day rolling window, giving us a dynamic measure of market volatility that adapts to changing market conditions.
+
+## Moving Averages
+
+```{r moving_averages}
+# Calculate moving averages
+bac_stock_clean_returns_price_sd_ma <- bac_stock_clean_returns_price_sd %>% 
+  mutate(
+    moving_average_7 = rollapply(close, width = 7, FUN = mean, fill = NA, align = "right"),
+    moving_average_21 = rollapply(close, width = 21, FUN = mean, fill = NA, align = "right")
+  )
+```
+
+**Rationale:** Moving averages smooth out short-term price fluctuations, helping to identify trends. The 7-day MA captures short-term trends, while the 21-day MA (approximately one trading month) captures medium-term trends. These are commonly used by traders and analysts to make investment decisions.
+
+**Formula Used**: $MA_n(t) = \frac{1}{n}\sum_{i=t-n+1}^{t}P_i$
+
+**Why This Formula Is Used**: Moving averages smooth out short-term fluctuations in price data, helping to identify trends.
+
+**What This Formula Calculates**: 
+
+-  The 7-day moving average computes the average closing price over the previous 7 days, providing a short-term trend indicator.
+
+-  The 21-day moving average computes the average closing price over the previous 21 days, providing a medium-term trend indicator.
+
+## Relative Strength Index (RSI)
+
+```{r rsi}
+# Calculate RSI
+bac_stock_clean_returns_price_sd_ma_rsi <- bac_stock_clean_returns_price_sd_ma
+bac_stock_clean_returns_price_sd_ma_rsi$rsi_14 <- RSI(bac_stock_clean_returns_price_sd_ma_rsi$close, n = 14)
+```
+
+**Rationale:** RSI is a momentum oscillator that identifies potential overbought (RSI > 70) or oversold (RSI < 30) conditions. The standard 14-day period balances sensitivity and reliability, providing insights into potential price reversals.
+
+**Formula Used**: $RSI = 100 - \frac{100}{1 + RS}$ where $RS = \frac{\text{Average Gain}}{\text{Average Loss}}$
+
+**Why This Formula Is Used**: RSI is a momentum oscillator that measures the speed and change of price movements, indicating overbought or oversold conditions.
+
+**What This Formula Calculates**: The RSI calculates the ratio of average gains to average losses over a 14-day period, resulting in a value between 0 and 100. Values above 70 typically indicate overbought conditions, while values below 30 suggest oversold conditions.
+
+## Complete Dataset for Analysis
+
+```{r complete_dataset}
+# Complete data ready for analysis
+bac_stock_complete <- bac_stock_clean_returns_price_sd_ma_rsi
+
+# Save complete data
+write_csv(bac_stock_complete, file = "/Users/creation/Library/CloudStorage/GoogleDrive-longlivenepal48@gmail.com/My Drive/1. Anup Acharya/Learning/R Training/06. BAC Stock/bac-stock/bac_stock_complete.csv")
+```
+
+# Summary Statistics
+
+We calculate basic summary statistics for the key price and volume variables.
+
+```{r summary_stats}
+# Calculate mean and median
+summary_stats <- data.frame(
+  Variable = c("open", "high", "low", "close", "volume"),
+  mean_bac_stock_complete = c(
+    mean(bac_stock_complete$open, na.rm = TRUE),
+    mean(bac_stock_complete$high, na.rm = TRUE),
+    mean(bac_stock_complete$low, na.rm = TRUE),
+    mean(bac_stock_complete$close, na.rm = TRUE),
+    mean(bac_stock_complete$volume, na.rm = TRUE)
+  ),
+  median_bac_stock_complete = c(
+    median(bac_stock_complete$open, na.rm = TRUE),
+    median(bac_stock_complete$high, na.rm = TRUE),
+    median(bac_stock_complete$low, na.rm = TRUE),
+    median(bac_stock_complete$close, na.rm = TRUE),
+    median(bac_stock_complete$volume, na.rm = TRUE)
+  )
+)
+
+summary_stats
+```
+
+**Findings:**
+
+-  The average closing price for BAC over the entire period is approximately $23.78, with a median of $23.03.
+
+-  The significant difference between mean volume (51.5 million) and median volume (14.5 million) suggests a right-skewed distribution with occasional very high trading volumes.
+
+-  The close proximity of mean and median prices indicates a relatively symmetric price distribution.
+
+# Time Series Analysis
+
+## Stationarity Testing
+
+```{r stationarity_test}
+# Convert to time series object
+time_series_data <- ts(bac_stock_complete$close, start = c(1978, 3), frequency = 12)
+
+# Augmented Dickey-Fuller test
+adf_result <- adf.test(time_series_data)
+print(adf_result)
+```
+
+**Rationale:** Stationarity is a key assumption for many time series forecasting methods. The Augmented Dickey-Fuller test determines whether a time series is stationary (lacks unit roots).
+
+**Finding:** With a p-value of 0.5369, we fail to reject the null hypothesis of non-stationarity. This indicates that the BAC stock price series is non-stationary, which is typical for financial time series. This finding suggests that we should consider differencing or using models designed for non-stationary data.
+
+**Formula Used**: Augmented Dickey-Fuller (ADF) Test
+
+**Why This Formula Is Used**: The ADF test determines whether a time series is stationary, which is a key assumption for many time series analysis techniques.
+
+**What This Formula Calculates**: The test examines the presence of a unit root in the time series data. A low p-value (typically < 0.05) indicates that we can reject the null hypothesis of non-stationarity, suggesting the time series is stationary.
+
+## Decomposition
+
+```{r decomposition}
+# Decompose time series
+decompose_time_series_data <- decompose(time_series_data)
+plot(decompose_time_series_data)
+```
+
+**Rationale:** Time series decomposition separates the original series into trend, seasonal, and residual components, allowing us to understand the underlying patterns.
+
+**Findings:**
+
+-  The trend component shows the long-term movement in BAC stock prices, revealing periods of growth and decline.
+
+-  The seasonal component shows minimal regular seasonal patterns, which is typical for stock prices that primarily respond to market conditions rather than calendar effects.
+
+-  The random component (residuals) contains the unpredictable variations that cannot be attributed to trend or seasonality.
+
+**Formula Used**: Classical Decomposition Model: $Y_t = T_t + S_t + C_t + R_t$
+
+**Why This Formula Is Used**: Time series decomposition separates the original time series into its component parts.
+
+**What This Formula Calculates**: The decomposition breaks down the time series into:
+
+-  Trend component ($T_t$): Long-term movement in the data
+
+-  Seasonal component ($S_t$): Regular pattern of fluctuations
+
+-  Cyclical component ($C_t$): Medium-term fluctuations (often combined with trend in practice)
+
+-  Residual component ($R_t$): Irregular, random variations
+
+## Correlation Analysis
+
+```{r correlation_analysis}
+# Autocorrelation Function (ACF)
+acf(time_series_data, main = "Autocorrelation Function")
+
+# Partial Autocorrelation Function (PACF)
+pacf(time_series_data, main = "Partial Autocorrelation Function")
+```
+
+**Rationale:** ACF and PACF help identify patterns and dependencies in the time series data, which inform model selection for forecasting.
+
+**Findings:**
+
+-  The ACF shows strong positive autocorrelation that slowly decays, which is characteristic of non-stationary time series.
+
+-  The PACF shows a significant spike at lag 1, suggesting that an AR(1) component might be appropriate in the modeling.
+
+-  These patterns confirm our earlier finding of non-stationarity and suggest that ARIMA models with differencing would be appropriate.
+
+**Formula Used**: 
+1. Autocorrelation Function (ACF): $\rho_k = \frac{\sum_{t=k+1}^{T}(y_t - \bar{y})(y_{t-k} - \bar{y})}{\sum_{t=1}^{T}(y_t - \bar{y})^2}$
+2. Partial Autocorrelation Function (PACF): Measures the correlation between $y_t$ and $y_{t-k}$ after removing the effects of the intermediate lags.
+
+**Why These Formulas Are Used**: ACF and PACF help identify patterns and dependencies in the time series data.
+
+**What These Formulas Calculate**: 
+
+-  ACF shows the correlation between a time series and its lagged values.
+
+-  PACF shows the direct correlation between a time series and its lagged values, removing the influence of intermediate lags.
+
+# Visualization
+
+## Price Trends
+
+### Candlestick Chart
+
+```{r candlestick_chart, fig.height=6, fig.width=10}
+# Candlestick chart for entire period
+candleChart(as.xts(bac_stock_complete[, c("open", "high", "low", "close")],
+                   order.by = bac_stock_complete$date),
+            name = "BAC Stock Price")
+```
+
+```{r candlestick_chart_recent, fig.height=6, fig.width=10}
+# Candlestick chart for last 60 days
+last_60_bac_stock_complete <- tail(bac_stock_complete, 60)
+
+candleChart(as.xts(last_60_bac_stock_complete[, c("open", "high", "low", "close")],
+                   order.by = last_60_bac_stock_complete$date),
+            name = "BAC Stock Price (Last 60 Days)")
+```
+
+**Rationale:** Candlestick charts visualize OHLC data in a format that highlights price movement patterns and potential reversals.
+
+**Findings:**
+
+-  The full-period chart shows the overall history of BAC stock, including major market events like the 2008 financial crisis (visible as a sharp decline).
+
+-  The 60-day chart allows for closer examination of recent price action, revealing short-term patterns that might not be visible in the full history.
+
+-  These visualizations help identify key support and resistance levels as well as bullish and bearish patterns.
+
+### Interactive Trendline
+
+```{r interactive_trendline, fig.height=6, fig.width=10}
+# Create interactive trendline plot
+plotly_data <- ggplot(bac_stock_complete, aes(x = date, y = close)) +
+  geom_line() +
+  geom_smooth(method = "loess") +
+  labs(title = "BAC Stock Price with Trendline",
+       x = "Date",
+       y = "Closing Price ($)")
+
+ggplotly(plotly_data)
+```
+
+**Rationale:** An interactive trendline plot allows for exploration of the long-term price trend with the ability to zoom into specific periods of interest.
+
+**Findings:**
+
+-  The LOESS smoothing reveals the underlying trend by filtering out short-term noise.
+
+-  The interactive nature allows for detailed examination of specific time periods, such as the dramatic drop during the 2008 financial crisis and subsequent recovery.
+
+-  Recent trends can be examined in detail to inform current investment decisions.
+
+## Distribution Analysis
+
+### Histogram/Density Plot of Returns
+
+```{r returns_distribution, fig.height=6, fig.width=10}
+# Ensure daily returns are calculated
+bac_stock_complete$daily_return <- c(NA, diff(log(bac_stock_complete$close)))
+
+# Create histogram and density plot
+ggplot(na.omit(bac_stock_complete), aes(x = daily_return)) +
+  geom_histogram(binwidth = 0.01, fill = "blue", alpha = 0.5) +
+  geom_density(color = "red") +
+  labs(title = "Distribution of Daily Returns",
+       x = "Daily Log Return",
+       y = "Frequency")
+```
+
+**Rationale:** Analyzing the distribution of returns helps us understand the risk profile of the stock and informs statistical modeling.
+
+**Findings:**
+
+-  The distribution shows the classic "fat tails" characteristic of financial returns, with more extreme events than would be expected in a normal distribution.
+
+-  The distribution is centered slightly above zero, indicating a small positive average daily return.
+
+-  The pronounced peak around zero suggests many days with minimal price movement.
+
+### Volatility Clustering
+
+```{r volatility_clustering, fig.height=6, fig.width=10}
+# Calculate 20-day rolling standard deviation
+bac_stock_complete$roll_sd <- zoo::rollapply(bac_stock_complete$daily_return, 
+                                            width = 20, 
+                                            FUN = sd, 
+                                            fill = NA)
+
+# Plot volatility clustering
+ggplot(na.omit(bac_stock_complete), aes(x = date, y = roll_sd)) +
+  geom_line() +
+  labs(title = "Volatility Clustering",
+       x = "Date",
+       y = "20-Day Rolling Standard Deviation")
+```
+
+**Rationale:** Volatility clustering is a common phenomenon in financial markets where periods of high volatility tend to be followed by similarly high volatility, and low volatility periods cluster together.
+
+**Findings:**
+
+-  The plot clearly shows periods of elevated volatility, particularly during financial crises (evident in 2008-2009).
+
+-  Volatility clustering is apparent, with high-volatility periods persisting for extended durations.
+
+-  This pattern supports the use of GARCH models that explicitly account for volatility clustering.
+
+# Statistical Analysis
+
+## Volatility Modeling
+
+```{r volatility_modeling, fig.height=6, fig.width=10}
+# Prepare returns for GARCH modeling
+returns_clean <- na.omit(bac_stock_complete$daily_return) * 100
+
+# Specify GARCH model
+spec <- ugarchspec()
+
+# Fit GARCH model
+fit <- ugarchfit(spec, returns_clean)
+
+# Instead of interactive plot(fit), show summary and specific plots
+print(fit)
+
+# Extract and plot conditional volatility
+vol <- sigma(fit)
+plot(vol, type = "l", main = "GARCH(1,1) Conditional Volatility", 
+     xlab = "Time", ylab = "Conditional Volatility")
+
+# Plot standardized residuals
+std_resid <- residuals(fit, standardize = TRUE)
+plot(std_resid, type = "l", main = "GARCH(1,1) Standardized Residuals",
+     xlab = "Time", ylab = "Standardized Residuals")
+
+# Plot ACF of standardized residuals
+acf(std_resid, main = "ACF of Standardized Residuals")
+```
+
+**Rationale:** GARCH models are specifically designed to capture volatility clustering in financial time series, providing insights into the time-varying risk of the asset.
+
+**Findings:**
+
+-  The GARCH(1,1) model shows high persistence in volatility (β1 = 0.86), indicating that periods of high volatility tend to persist.
+
+-  The conditional volatility plot highlights periods of market stress, notably the 2008 financial crisis.
+
+-  The standardized residuals appear more homoscedastic than the original returns, suggesting the GARCH model effectively captures the changing volatility.
+
+-  The ACF of standardized residuals shows minimal significant autocorrelation, indicating that the model adequately captures the dependency structure in the returns.
+
+**Formula Used**: GARCH(1,1) Model: $\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \beta_1 \sigma_{t-1}^2$
+
+**Why This Formula Is Used**: The Generalized Autoregressive Conditional Heteroskedasticity (GARCH) model captures volatility clustering in financial time series.
+
+**What This Formula Calculates**: The GARCH model estimates:
+
+-  $\omega$: The long-run average variance rate
+
+-  $\alpha_1$: The weight assigned to the most recent squared residual
+
+-  $\beta_1$: The weight assigned to the previous period's variance
+
+Together, these parameters model the time-varying volatility of the stock returns.
+
+## Hypothesis Testing
+
+```{r hypothesis_testing}
+# Perform t-test on daily returns
+hypothesis_testing <- t.test(bac_stock_complete$daily_return)
+print(hypothesis_testing)
+```
+
+**Rationale:** A one-sample t-test evaluates whether the average daily return is significantly different from zero, helping us determine if BAC stock has historically provided a statistically significant positive return.
+
+**Findings:**
+
+-  The t-test yields a p-value of 0.2448, which is greater than the conventional significance level of 0.05.
+
+-  We cannot reject the null hypothesis that the true mean daily return is zero.
+
+-  Despite an average daily return of 0.033%, this result suggests that the observed positive return could be due to random chance rather than a systematic positive drift.
+
+**Formula Used**: One-sample t-test: $t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$
+
+**Why This Formula Is Used**: The t-test examines whether the mean daily return is significantly different from zero.
+
+**What This Formula Calculates**: The test calculates a t-statistic by comparing the sample mean to the hypothesized population mean (zero), accounting for the sample standard deviation and sample size. This helps determine if the stock's returns are statistically significant or merely due to random chance.
+
+# Predictive Modeling
+
+## ARIMA Forecasting
+
+```{r arima_forecasting, fig.height=6, fig.width=10}
+# Fit ARIMA model
+fit_arima <- auto.arima(time_series_data)
+
+# Generate forecasts
+forecasted <- forecast(fit_arima, h = 12)
+
+# Plot forecasts
+plot(forecasted, main = "ARIMA Forecast of BAC Stock Price",
+     xlab = "Time", ylab = "Price ($)")
+```
+
+**Rationale:** ARIMA models are widely used for time series forecasting, capturing the autocorrelation structure in the data to make predictions.
+
+**Findings:**
+
+-  The auto.arima function selected the optimal ARIMA model based on information criteria.
+
+-  The forecast shows a slight upward trend for BAC stock price in the coming months.
+
+-  The widening prediction intervals reflect increasing uncertainty over longer forecast horizons.
+
+-  This model provides a baseline prediction that can be used for investment planning.
+
+**Formula Used**: ARIMA(p,d,q) Model: $(1 - \phi_1 B - ... - \phi_p B^p)(1-B)^d y_t = (1 + \theta_1 B + ... + \theta_q B^q) \epsilon_t$
+
+**Why This Formula Is Used**: The Autoregressive Integrated Moving Average (ARIMA) model captures the autocorrelation in time series data and provides forecasts.
+
+**What This Formula Calculates**: The ARIMA model:
+
+-  AR(p): Uses p previous time points to predict the current value
+-  I(d): Applies d-order differencing to make the series stationary
+-  MA(q): Incorporates q previous error terms into the prediction
+Auto.arima selects the optimal values of p, d, and q automatically based on information criteria.
+
+## Machine Learning
+
+```{r random_forest, fig.height=6, fig.width=10}
+# Fit Random Forest model
+model_bac <- randomForest(close ~ open + high + low + volume,
+                         data = na.omit(bac_stock_complete))
+
+# Make predictions
+predict <- predict(model_bac, na.omit(bac_stock_complete))
+predict_df <- data.frame(predicted_close = predict)
+
+# Add day index for plotting
+predicted_df_mutate <- predict_df %>% 
+  mutate(day = if_else(row_number() <= max(which(!is.na(predicted_close))),
+                     row_number(),
+                     as.numeric(NA))) %>%
+  relocate(day, .before = 1)
+
+# Plot actual vs predicted values
+actuals <- na.omit(bac_stock_complete)$close[1:nrow(predicted_df_mutate)]
+comparison_df <- data.frame(
+  day = 1:length(actuals),
+  actual = actuals,
+  predicted = predicted_df_mutate$predicted_close
+)
+
+ggplot(comparison_df, aes(x = day)) +
+  geom_line(aes(y = actual, color = "Actual")) +
+  geom_line(aes(y = predicted, color = "Predicted")) +
+  labs(title = "Random Forest: Actual vs Predicted Closing Prices",
+       x = "Trading Day",
+       y = "Closing Price ($)",
+       color = "Legend") +
+  scale_color_manual(values = c("Actual" = "blue", "Predicted" = "red"))
+```
+
+**Rationale:** Random Forest is a powerful machine learning algorithm that can capture complex, non-linear relationships between features and target variables, potentially improving prediction accuracy.
+
+**Findings:**
+
+-  The Random Forest model shows remarkably close predictions to actual closing prices, indicating a strong relationship between the features (open, high, low, and volume) and the closing price.
+
+-  This high accuracy is partly expected since the day's high and low prices naturally constrain the closing price.
+
+-  The model could be improved by incorporating lagged variables or external factors to make it more useful for true out-of-sample prediction.
+
+**Formula Used**: Random Forest Regression
+
+**Why This Formula Is Used**: Random Forest is a powerful ensemble learning method that combines multiple decision trees to improve prediction accuracy and reduce overfitting.
+
+**What This Formula Calculates**: The Random Forest model predicts the closing price based on the opening price, high price, low price, and trading volume. It builds multiple decision trees, each trained on a random subset of the data and features, and combines their predictions to produce a more robust estimate.
+
+# Conclusion
+
+This analysis of Bank of America (BAC) stock data provided valuable insights into the stock's historical performance, volatility patterns, and predictive indicators. Through a comprehensive process of data cleaning, feature engineering, time series analysis, and predictive modeling, we have developed a deeper understanding of the factors that influence BAC's stock price movements.
+
+**Key findings include:**
+
+-  The data required significant cleaning, with about 17% of records removed due to logical inconsistencies, highlighting the importance of thorough data validation.
+
+-  BAC stock shows typical financial time series characteristics including non-stationarity, volatility clustering, and fat-tailed return distributions.
+
+-  The GARCH analysis revealed high volatility persistence (β1 = 0.86), indicating that volatility shocks tend to have lasting effects.
+
+-  Despite an observed positive average daily return, the t-test could not confirm statistical significance, suggesting caution in assuming an inherent positive drift.
+
+-  Both ARIMA and Random Forest models demonstrated effectiveness in modeling BAC stock price movements, with Random Forest showing particularly strong in-sample predictive power.
+
+-  These insights can inform investment strategies and risk management approaches for BAC stock. However, it's important to remember that past performance does not guarantee future results, and stock prices are influenced by numerous factors beyond historical patterns.
+
+-  Future work could explore additional features, alternative modeling approaches, and the incorporation of external factors such as market indices, economic indicators, and sentiment analysis to further enhance predictive performance.

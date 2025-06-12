@@ -1,0 +1,277 @@
+"","cut","color","clarity","count"
+"1","Fair","D","I1",4
+"2","Fair","D","SI2",56
+"3","Fair","D","SI1",58
+"4","Fair","D","VS2",25
+"5","Fair","D","VS1",5
+"6","Fair","D","VVS2",9
+"7","Fair","D","VVS1",3
+"8","Fair","D","IF",3
+"9","Fair","E","I1",9
+"10","Fair","E","SI2",77
+"11","Fair","E","SI1",65
+"12","Fair","E","VS2",41
+"13","Fair","E","VS1",14
+"14","Fair","E","VVS2",13
+"15","Fair","E","VVS1",3
+"16","Fair","F","I1",35
+"17","Fair","F","SI2",87
+"18","Fair","F","SI1",83
+"19","Fair","F","VS2",52
+"20","Fair","F","VS1",33
+"21","Fair","F","VVS2",10
+"22","Fair","F","VVS1",5
+"23","Fair","F","IF",4
+"24","Fair","G","I1",53
+"25","Fair","G","SI2",79
+"26","Fair","G","SI1",69
+"27","Fair","G","VS2",44
+"28","Fair","G","VS1",44
+"29","Fair","G","VVS2",17
+"30","Fair","G","VVS1",3
+"31","Fair","G","IF",2
+"32","Fair","H","I1",52
+"33","Fair","H","SI2",89
+"34","Fair","H","SI1",73
+"35","Fair","H","VS2",41
+"36","Fair","H","VS1",32
+"37","Fair","H","VVS2",11
+"38","Fair","H","VVS1",1
+"39","Fair","I","I1",34
+"40","Fair","I","SI2",44
+"41","Fair","I","SI1",30
+"42","Fair","I","VS2",32
+"43","Fair","I","VS1",25
+"44","Fair","I","VVS2",8
+"45","Fair","I","VVS1",1
+"46","Fair","J","I1",23
+"47","Fair","J","SI2",27
+"48","Fair","J","SI1",28
+"49","Fair","J","VS2",23
+"50","Fair","J","VS1",16
+"51","Fair","J","VVS2",1
+"52","Fair","J","VVS1",1
+"53","Good","D","I1",8
+"54","Good","D","SI2",223
+"55","Good","D","SI1",235
+"56","Good","D","VS2",104
+"57","Good","D","VS1",43
+"58","Good","D","VVS2",25
+"59","Good","D","VVS1",13
+"60","Good","D","IF",9
+"61","Good","E","I1",22
+"62","Good","E","SI2",201
+"63","Good","E","SI1",355
+"64","Good","E","VS2",160
+"65","Good","E","VS1",89
+"66","Good","E","VVS2",52
+"67","Good","E","VVS1",43
+"68","Good","E","IF",9
+"69","Good","F","I1",19
+"70","Good","F","SI2",199
+"71","Good","F","SI1",273
+"72","Good","F","VS2",184
+"73","Good","F","VS1",132
+"74","Good","F","VVS2",50
+"75","Good","F","VVS1",35
+"76","Good","F","IF",15
+"77","Good","G","I1",18
+"78","Good","G","SI2",160
+"79","Good","G","SI1",207
+"80","Good","G","VS2",192
+"81","Good","G","VS1",152
+"82","Good","G","VVS2",75
+"83","Good","G","VVS1",41
+"84","Good","G","IF",22
+"85","Good","H","I1",14
+"86","Good","H","SI2",156
+"87","Good","H","SI1",234
+"88","Good","H","VS2",138
+"89","Good","H","VS1",77
+"90","Good","H","VVS2",45
+"91","Good","H","VVS1",31
+"92","Good","H","IF",4
+"93","Good","I","I1",9
+"94","Good","I","SI2",80
+"95","Good","I","SI1",163
+"96","Good","I","VS2",110
+"97","Good","I","VS1",102
+"98","Good","I","VVS2",26
+"99","Good","I","VVS1",22
+"100","Good","I","IF",6
+"101","Good","J","I1",4
+"102","Good","J","SI2",53
+"103","Good","J","SI1",88
+"104","Good","J","VS2",90
+"105","Good","J","VS1",51
+"106","Good","J","VVS2",13
+"107","Good","J","VVS1",1
+"108","Good","J","IF",6
+"109","Very Good","D","I1",5
+"110","Very Good","D","SI2",314
+"111","Very Good","D","SI1",491
+"112","Very Good","D","VS2",309
+"113","Very Good","D","VS1",175
+"114","Very Good","D","VVS2",141
+"115","Very Good","D","VVS1",52
+"116","Very Good","D","IF",23
+"117","Very Good","E","I1",22
+"118","Very Good","E","SI2",444
+"119","Very Good","E","SI1",626
+"120","Very Good","E","VS2",503
+"121","Very Good","E","VS1",293
+"122","Very Good","E","VVS2",298
+"123","Very Good","E","VVS1",170
+"124","Very Good","E","IF",43
+"125","Very Good","F","I1",13
+"126","Very Good","F","SI2",342
+"127","Very Good","F","SI1",559
+"128","Very Good","F","VS2",466
+"129","Very Good","F","VS1",293
+"130","Very Good","F","VVS2",249
+"131","Very Good","F","VVS1",174
+"132","Very Good","F","IF",67
+"133","Very Good","G","I1",16
+"134","Very Good","G","SI2",327
+"135","Very Good","G","SI1",474
+"136","Very Good","G","VS2",478
+"137","Very Good","G","VS1",432
+"138","Very Good","G","VVS2",302
+"139","Very Good","G","VVS1",190
+"140","Very Good","G","IF",79
+"141","Very Good","H","I1",12
+"142","Very Good","H","SI2",341
+"143","Very Good","H","SI1",546
+"144","Very Good","H","VS2",373
+"145","Very Good","H","VS1",257
+"146","Very Good","H","VVS2",145
+"147","Very Good","H","VVS1",115
+"148","Very Good","H","IF",29
+"149","Very Good","I","I1",8
+"150","Very Good","I","SI2",200
+"151","Very Good","I","SI1",358
+"152","Very Good","I","VS2",273
+"153","Very Good","I","VS1",205
+"154","Very Good","I","VVS2",71
+"155","Very Good","I","VVS1",69
+"156","Very Good","I","IF",19
+"157","Very Good","J","I1",8
+"158","Very Good","J","SI2",128
+"159","Very Good","J","SI1",182
+"160","Very Good","J","VS2",184
+"161","Very Good","J","VS1",119
+"162","Very Good","J","VVS2",29
+"163","Very Good","J","VVS1",19
+"164","Very Good","J","IF",8
+"165","Premium","D","I1",12
+"166","Premium","D","SI2",418
+"167","Premium","D","SI1",555
+"168","Premium","D","VS2",339
+"169","Premium","D","VS1",131
+"170","Premium","D","VVS2",94
+"171","Premium","D","VVS1",39
+"172","Premium","D","IF",10
+"173","Premium","E","I1",30
+"174","Premium","E","SI2",514
+"175","Premium","E","SI1",614
+"176","Premium","E","VS2",628
+"177","Premium","E","VS1",292
+"178","Premium","E","VVS2",121
+"179","Premium","E","VVS1",105
+"180","Premium","E","IF",27
+"181","Premium","F","I1",34
+"182","Premium","F","SI2",519
+"183","Premium","F","SI1",604
+"184","Premium","F","VS2",619
+"185","Premium","F","VS1",288
+"186","Premium","F","VVS2",145
+"187","Premium","F","VVS1",80
+"188","Premium","F","IF",31
+"189","Premium","G","I1",45
+"190","Premium","G","SI2",488
+"191","Premium","G","SI1",564
+"192","Premium","G","VS2",719
+"193","Premium","G","VS1",566
+"194","Premium","G","VVS2",275
+"195","Premium","G","VVS1",171
+"196","Premium","G","IF",87
+"197","Premium","H","I1",45
+"198","Premium","H","SI2",514
+"199","Premium","H","SI1",653
+"200","Premium","H","VS2",530
+"201","Premium","H","VS1",334
+"202","Premium","H","VVS2",118
+"203","Premium","H","VVS1",112
+"204","Premium","H","IF",40
+"205","Premium","I","I1",24
+"206","Premium","I","SI2",308
+"207","Premium","I","SI1",366
+"208","Premium","I","VS2",313
+"209","Premium","I","VS1",221
+"210","Premium","I","VVS2",82
+"211","Premium","I","VVS1",84
+"212","Premium","I","IF",23
+"213","Premium","J","I1",13
+"214","Premium","J","SI2",161
+"215","Premium","J","SI1",209
+"216","Premium","J","VS2",201
+"217","Premium","J","VS1",152
+"218","Premium","J","VVS2",34
+"219","Premium","J","VVS1",24
+"220","Premium","J","IF",12
+"221","Ideal","D","I1",13
+"222","Ideal","D","SI2",356
+"223","Ideal","D","SI1",735
+"224","Ideal","D","VS2",914
+"225","Ideal","D","VS1",351
+"226","Ideal","D","VVS2",284
+"227","Ideal","D","VVS1",142
+"228","Ideal","D","IF",28
+"229","Ideal","E","I1",18
+"230","Ideal","E","SI2",468
+"231","Ideal","E","SI1",763
+"232","Ideal","E","VS2",1132
+"233","Ideal","E","VS1",593
+"234","Ideal","E","VVS2",505
+"235","Ideal","E","VVS1",335
+"236","Ideal","E","IF",79
+"237","Ideal","F","I1",42
+"238","Ideal","F","SI2",451
+"239","Ideal","F","SI1",608
+"240","Ideal","F","VS2",877
+"241","Ideal","F","VS1",616
+"242","Ideal","F","VVS2",518
+"243","Ideal","F","VVS1",440
+"244","Ideal","F","IF",266
+"245","Ideal","G","I1",16
+"246","Ideal","G","SI2",486
+"247","Ideal","G","SI1",655
+"248","Ideal","G","VS2",907
+"249","Ideal","G","VS1",947
+"250","Ideal","G","VVS2",774
+"251","Ideal","G","VVS1",590
+"252","Ideal","G","IF",488
+"253","Ideal","H","I1",38
+"254","Ideal","H","SI2",450
+"255","Ideal","H","SI1",761
+"256","Ideal","H","VS2",555
+"257","Ideal","H","VS1",466
+"258","Ideal","H","VVS2",285
+"259","Ideal","H","VVS1",324
+"260","Ideal","H","IF",225
+"261","Ideal","I","I1",17
+"262","Ideal","I","SI2",272
+"263","Ideal","I","SI1",503
+"264","Ideal","I","VS2",438
+"265","Ideal","I","VS1",408
+"266","Ideal","I","VVS2",178
+"267","Ideal","I","VVS1",179
+"268","Ideal","I","IF",95
+"269","Ideal","J","I1",2
+"270","Ideal","J","SI2",110
+"271","Ideal","J","SI1",243
+"272","Ideal","J","VS2",231
+"273","Ideal","J","VS1",201
+"274","Ideal","J","VVS2",53
+"275","Ideal","J","VVS1",29
+"276","Ideal","J","IF",25
