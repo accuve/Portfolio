@@ -8,9 +8,9 @@ description: "Professional data science portfolio of Anup Acharya, showcasing da
 lang: "en" # Site-wide language (BCP 47 tag)
 
 # URL and BaseURL settings - CRITICAL for GitHub Pages
-# Live site: https://accuve.github.io/portfolio/
+# Live site: https://accuve.github.io/Portfolio/
 url: "https://accuve.github.io"
-baseurl: "/portfolio"
+baseurl: "/Portfolio"
 
 # GitHub User/Repo (Optional, can be used by plugins)
 github_username: "accuve"
