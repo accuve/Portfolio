@@ -24,7 +24,7 @@ description: "A collection of Anup Acharya's data analysis projects demonstratin
         </div>
       </div>
       <p class="project-objective"><strong>Objective:</strong> To explore relationships between diamond attributes and price, identifying key drivers and patterns for predictive understanding.</p>
-      <span class="project-details-indicator">View Full Analysis →</span>
+      <span class="project-details-indicator">View in Details →</span>
     </div>
   </a>
 
