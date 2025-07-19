@@ -60,17 +60,19 @@ description: "A collection of Anup Acharya's data analysis projects demonstratin
     </div>
   </a>
 
-  <div class="project-box no-link"> 
-    <span class="project-number">Project IV</span>
-    <div class="project-header"> 
-       <img src="{{ '/assets/images/citybike_icon.png' | relative_url }}" alt="City Bike Icon"> <!-- ADD YOUR ICON IMAGE -->
-       <div class="project-header-text">
-          <h3>City Bikes Demand Forecasting</h3>
-          <div class="tools-used">Tech: Python (Pandas, Scikit-learn), Excel</div>
+  <a href="{{ '/projects/data-analysis/store_sales_analysis/sales_analysis.html' | relative_url }}" target="_blank" rel="noopener noreferrer" class="project-box-link">
+    <div class="project-box">
+      <span class="project-number">Project IV</span>
+      <div class="project-header">
+        <img src="{{ '/assets/images/sales_analysis.png' | relative_url }}" alt="Sales Analysis Icon"> 
+        <div class="project-header-text">
+          <h3>Store Sales Analysis</h3>
+          <div class="dataset-title">Dataset by A.Suresh Kumar</div>
+          <div class="tools-used">Tools: R (tidyverse,XGBoost)</div>
         </div>
+      </div>
+      <p class="project-objective"><strong>Objective:</strong> To uncover key drivers of sales, evaluate the effectiveness of current strategies (such as discounts), and build a predictive model to forecast future sales.</p>
+      <span class="project-details-indicator">View in Details →</span>
     </div>
-    <p class="project-objective"><strong>Objective:</strong> To develop a predictive model for daily bike rental demand to help optimize inventory and operations for a city bike-sharing program.</p>
-    <span class="project-details-indicator">View in Details →</span>
-  </div>
-
+  </a>
 </div>
