@@ -11,11 +11,10 @@ description: "Detailed professional background, experience, skills, and qualific
     <p class="tagline">Data Analyst | Financial Professional</p>
     <div class="introduction-contact-icons">
       <a href="mailto:{{ site.email }}" target="_blank" rel="noopener noreferrer" aria-label="Email Anup Acharya">
-        <img src="{{ '/assets/images/gmail.png' | relative_url }}" alt="Gmail Icon" >
+        <img src="{{ '/assets/images/gmail.png' | relative_url }}" alt="Gmail Icon">
       </a>
-        
       <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer" aria-label="Anup Acharya's LinkedIn Profile">
-        <img src="{{ '/assets/images/linkedin.png' | relative_url }}" alt="LinkedIn Icon" >
+        <img src="{{ '/assets/images/linkedin.png' | relative_url }}" alt="LinkedIn Icon">
       </a>
     </div>
   </div>
@@ -24,45 +23,56 @@ description: "Detailed professional background, experience, skills, and qualific
 <p class="intro-pitch">
 A results-oriented Data Analyst and Chartered Accountant with over 6 years of experience leveraging financial acumen and advanced analytical skills to transform complex data into actionable insights. Passionate about driving business decisions, optimizing processes, and uncovering financial narratives through meticulous data exploration, robust analysis (SQL, R, Python), and compelling visualizations (Tableau). Eager to apply my expertise to solve challenging problems and contribute to data-driven success.
 </p>
-  
-# Professional Profile
-
-<p>Strategic financial professional with over 6 years of experience in financial analysis, audit management, and operational optimization. Recently expanded skillset to include data analytics certification from Google, enhancing my ability to deliver data-backed strategic recommendations.</p>
 
 ## Professional Experience
 
-### Chief Financial Officer | Sherpa Hospitality Group | Kathmandu | Dec 2023 – Mar 2025
+### Chief Financial Officer
+<div class="experience-details">
+  <strong>Sherpa Hospitality Group</strong> | Kathmandu | Dec 2023 – Mar 2025
+</div>
 <ul>
-  <li>Led financial operations across 7+ hospitality entities, implementing strategies that improved cash flow forecasting accuracy by 100%, sales forcasting by 90% and reduced Budgeted cost Varianc by 100%.</li>
-  <li>Orchestrated a successful private equity placement, securing amount in figure of * digits for strategic growth initiatives.</li>
-  <li>Prepared GAAP and NFRS compliant financial statements; conducted consolidated performance analysis that identified key revenue drivers contributing to 20% growth.</li>
-  <li>Designed and implemented an accounting consolidation system using AEGES ERP and a excel macro of my design, enhancing group-wide financial reporting accuracy and reducing month-end closing time by 15 days.</li>
-  <li>Developed innovative reporting frameworks for project-specific financial performance and multi-stakeholder fund management, improving transparency and decision-making speed.</li>
+  <li>Led financial operations across 7+ hospitality entities, implementing strategies that improved cash flow forecasting accuracy by 100%, sales forecasting by 90%, and reduced budgeted cost variance by 100%.</li>
+  <li>Orchestrated a successful private equity placement, securing significant growth capital.</li>
+  <li>Prepared GAAP and NFRS compliant financial statements and conducted consolidated performance analysis that identified key revenue drivers contributing to 20% growth.</li>
+  <li>Designed and implemented an accounting consolidation system using AEGES ERP and a custom Excel macro, enhancing reporting accuracy and reducing month-end closing time by 15 days.</li>
+  <li>Developed innovative reporting frameworks for project-specific financial performance and multi-stakeholder fund management.</li>
 </ul>
 
-### Finance Controller | Thamserku Trekking Group | Kathmandu | Apr 2022 – Dec 2023
+### Finance Controller
+<div class="experience-details">
+  <strong>Thamserku Trekking Group</strong> | Kathmandu | Apr 2022 – Dec 2023
+</div>
 <ul>
-  <li>Automated aging reports for trade receivables/payables using Tally Prime Billwise Accounting module, reducing manual effort by 24 hours/month per company and improving collection tracking.</li>
-  <li>Implemented the first comprehensive budgeting system, leading to a 50% improvement in budget adherence and providing actionable monthly variance reports to the Senior Management Team.</li>
-  <li>Developed systematic asset management coding and standardized cost sheets, which enhanced financial reporting accuracy and supported more precise project profitability analysis.</li>
+  <li>Automated aging reports for trade receivables/payables using Tally Prime, reducing manual effort by 24 hours/month per company.</li>
+  <li>Implemented the first comprehensive budgeting system, leading to a 50% improvement in budget adherence.</li>
+  <li>Developed systematic asset management coding and standardized cost sheets to enhance financial reporting accuracy.</li>
 </ul>
 
-### Finance Executive-Head of Department | Eastern Sugar Mills Limited | Kathmandu | Aug 2021 – Mar 2022
+### Finance Executive-Head of Department
+<div class="experience-details">
+  <strong>Eastern Sugar Mills Limited</strong> | Kathmandu | Aug 2021 – Mar 2022
+</div>
 <ul>
-  <li>Conducted detailed financial trend analysis, identifying engineering and production cost structures that could be optimized by 15%, and designed budgeting frameworks that improved profit margin forecasting.</li>
-  <li>Enhanced risk management by implementing Operational internal controls that mitigated process deviation, efficient and timely repair and mainenance procedures and ensured regulatory compliance.</li>
-  <li>Utilized data-driven forecasting techniques for cash flow and inventory, successfully anticipating a potential inventory shortfall during production seasons and enabling proactive contingency planning.</li>
-  <li>Identified significant cost-saving opportunities approximately 10% through economies of scale and efficient resource allocation, supported by newly designed SOPs.</li>
+  <li>Conducted detailed financial trend analysis to identify 15% in potential cost optimizations.</li>
+  <li>Enhanced risk management by implementing new operational internal controls.</li>
+  <li>Utilized data-driven forecasting to anticipate and mitigate a potential inventory shortfall during peak production season.</li>
+  <li>Identified 10% in cost-saving opportunities through economies of scale and efficient resource allocation.</li>
 </ul>
 
-### Senior Internal Auditor | United Distributor Nepal Private Limited (Consultant-DABN & Co, Chartered Accountants) | Kathmandu | May 2020 – Jun 2021
+### Senior Internal Auditor
+<div class="experience-details">
+  <strong>United Distributor Nepal Private Limited (Consultant-DABN & Co)</strong> | Kathmandu | May 2020 – Jun 2021
+</div>
 <ul>
-  <li>Designed and implemented a centralized audit recommendation tracking system that improved follow-up efficiency by 100% and visibility for senior management by establishing culture of discussing Internal Audit Report between affected departments and formulating time frame for implementation and followups.</li>
-  <li>Led internal audits focused on operational efficiency, resulting in the identification of issues in Labour Audit, Payment cycle, Revievable management, Banking Procedure and reporting framework for process improvement and strengthening company policies.</li>
-  <li>Implemented data-driven management reports on audit recommendation status, enabling senior leadership to make informed decisions.</li>
+  <li>Designed and implemented a centralized audit recommendation tracking system that improved follow-up efficiency by 100%.</li>
+  <li>Led internal audits focused on operational efficiency, identifying key areas for process improvement.</li>
+  <li>Implemented data-driven management reports on audit recommendation status to inform senior leadership.</li>
 </ul>
 
-### Article Service | Vaithisvaran & Co, Chartered Accountants | Chennai | Feb 2015 – Feb 2018
+### Article Service
+<div class="experience-details">
+  <strong>Vaithisvaran & Co, Chartered Accountants</strong> | Chennai | Feb 2015 – Feb 2018
+</div>
 <ul>
   <li>Gained foundational experience in statutory audits, tax compliance, and financial statement preparation for diverse clients.</li>
 </ul>
@@ -80,19 +90,31 @@ A results-oriented Data Analyst and Chartered Accountant with over 6 years of ex
     <strong>Google Data Analytics Professional Certificate</strong>
     <ul>
       <li>Data Collection, Cleaning, and Preparation (SQL, R, Spreadsheets)</li>
-      <li>Data Analysis and Interpretation (identifying patterns, drawing conclusions)</li>
-      <li>Data Visualization and Storytelling (Tableau, R programming)</li>
+      <li>Data Analysis and Interpretation</li>
+      <li>Data Visualization and Storytelling (Tableau, R)</li>
     </ul>
   </li>
-  <li><strong>Microsoft Excel - Beginner to Advance Certificate Course</strong> (Proficient in PivotTables, VLOOKUP/XLOOKUP, Power Query, complex formulas for data manipulation and reporting)</li>
+  <li><strong>Microsoft Excel - Beginner to Advance Certificate Course</strong></li>
   <li><strong>Team Building for Business Success</strong></li>
 </ul>
 
 ## Skills
+
+### Data Analysis & Visualization
 <ul>
-  <li><strong>Data Analysis & Visualization:</strong> SQL (advanced queries, joins, window functions), R (dplyr, ggplot2, Shiny), Python (Pandas, NumPy, Matplotlib, Seaborn), Tableau (interactive dashboards), Excel (Power Query, advanced modeling), Statistical Analysis, A/B Testing Principles.</li>
-  <li><strong>Financial Acumen:</strong> Financial Modeling & Forecasting, Budgeting, GAAP/NFRS/IFRS, Financial Reporting, Variance Analysis, Risk Assessment & Management, Audit Management.</li>
-  <li><strong>Business Intelligence:</strong> Requirements Gathering, KPI Development, Dashboard Design, Data Storytelling, Process Optimization.</li>
-  <li><strong>Software & Tools:</strong> SAP, QuickBooks, Tally, Microsoft Office Suite (Expert), Google Workspace.</li>
-  <li><strong>Professional Attributes:</strong> Strategic Thinking, Problem-Solving, Attention to Detail, Communication (written & verbal), Project Management, Team Leadership.</li>
+    <li><strong>Languages/Tools:</strong> SQL, R (dplyr, ggplot2), Python (Pandas, NumPy), Tableau, Excel (Power Query, Advanced Modeling)</li>
+    <li><strong>Techniques:</strong> Statistical Analysis, A/B Testing, Data Cleaning, Data Storytelling</li>
+</ul>
+
+### Financial Acumen
+<ul>
+    <li><strong>Core Finance:</strong> Financial Modeling & Forecasting, Budgeting, GAAP/NFRS/IFRS, Financial Reporting, Variance Analysis</li>
+    <li><strong>Risk & Audit:</strong> Risk Assessment & Management, Audit Management</li>
+</ul>
+
+### Business & Software
+<ul>
+    <li><strong>Business Intelligence:</strong> KPI Development, Dashboard Design, Process Optimization</li>
+    <li><strong>Software:</strong> SAP, QuickBooks, Tally, Microsoft Office Suite, Google Workspace</li>
+    <li><strong>Professional:</strong> Strategic Thinking, Project Management, Team Leadership</li>
 </ul>
