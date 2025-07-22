@@ -75,4 +75,20 @@ description: "A collection of Anup Acharya's data analysis projects demonstratin
       <span class="project-details-indicator">View in Details →</span>
     </div>
   </a>
+
+  <a href="{{ '/projects/data-analysis/nepse_index_analysis/nepse_time_series_forecasting.html' | relative_url }}" target="_blank" rel="noopener noreferrer" class="project-box-link">
+    <div class="project-box">
+      <span class="project-number">Project IV</span>
+      <div class="project-header">
+        <img src="{{ '/assets/images/nepse.png' | relative_url }}" alt="Nepse Index Analysis Icon"> 
+        <div class="project-header-text">
+          <h3>Nepse Time-Series Forecasting</h3>
+          <div class="dataset-title">Dataset extracted from Mero Lagani</div>
+          <div class="tools-used">Tools: R (ggplot2, prophet,tseries, ARIMA Model)</div>
+        </div>
+      </div>
+      <p class="project-objective"><strong>Objective:</strong> This report details a comprehensive time series analysis of a NEPSE stock index, using historical data up to July 2025. The primary objectives were to clean and prepare the data, build a reliable forecasting model, and generate predictions for the next 30 days. Limitation: For analysis, this model accounts for holidays but for forecasting it doesnot account for holiday and gives straight 30 days forecast</p>
+      <span class="project-details-indicator">View in Details →</span>
+    </div>
+  </a>
 </div>
