@@ -87,7 +87,7 @@ description: "A collection of Anup Acharya's data analysis projects demonstratin
           <div class="tools-used">Tools: R (ggplot2, prophet,tseries, ARIMA Model)</div>
         </div>
       </div>
-      <p class="project-objective"><strong>Objective:</strong> This report details a comprehensive time series analysis of a NEPSE stock index, using historical data up to July 2025. The primary objectives were to clean and prepare the data, build a reliable forecasting model, and generate predictions for the next 30 days. Limitation: For analysis, this model accounts for holidays but for forecasting it doesnot account for holiday and gives straight 30 days forecast</p>
+      <p class="project-objective"><strong>Objective:</strong> This report details a comprehensive time series analysis of a NEPSE stock index, using historical data up to July 2025.</p>
       <span class="project-details-indicator">View in Details →</span>
     </div>
   </a>
