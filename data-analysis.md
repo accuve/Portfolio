@@ -78,7 +78,7 @@ description: "A collection of Anup Acharya's data analysis projects demonstratin
 
   <a href="{{ '/projects/data-analysis/nepse_index_analysis/nepse_time_series_forecasting.html' | relative_url }}" target="_blank" rel="noopener noreferrer" class="project-box-link">
     <div class="project-box">
-      <span class="project-number">Project IV</span>
+      <span class="project-number">Project V</span>
       <div class="project-header">
         <img src="{{ '/assets/images/nepse.png' | relative_url }}" alt="Nepse Index Analysis Icon"> 
         <div class="project-header-text">
