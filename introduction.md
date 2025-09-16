@@ -25,6 +25,20 @@ A results-oriented Data Analyst and Chartered Accountant with over 6 years of ex
 </p>
 
 ## Professional Experience
+### Chief Executive Officer
+<div class="experience-details">
+  <strong>Mahanagar Yatayat Private Limited</strong> | Kathmandu | Sep 2025 – Present
+</div>
+<ul>
+  <li>Appointed to oversee and lead the entire operations of the company, with a focus on organizational growth and modernization.</li>
+  <li>Driving the conversion of the company from Private Limited to Public Limited, enabling public participation and strengthening governance.</li>
+  <li>Leading efforts to attract Venture Capital funding to expand operations and modernize fleet infrastructure.</li>
+  <li>Implementing strategies to reduce loan liabilities and improve the company’s financial sustainability.</li>
+  <li>Negotiating and signing MOUs with partner organizations for strategic collaboration and service expansion.</li>
+  <li>Spearheading the installation of GPS systems across the fleet and integrating them with a customer-facing mobile app for real-time bus tracking and service availability.</li>
+  <li>Driving operational optimization, route planning, and customer experience improvement through data-driven decision-making.</li>
+  <li>Building relationships with local government bodies and stakeholders to promote sustainable and reliable urban transport solutions.</li>
+</ul>
 
 ### Chief Financial Officer
 <div class="experience-details">
