@@ -7,7 +7,7 @@ description: "Welcome to Anup Acharya's Data Science Portfolio. Explore projects
 # Welcome to My Professional Portfolio
 
 <p class="page-intro-paragraph">
-  I'm a strategic financial professional with expertise in financial analysis, audit management, and data analytics. My background combines traditional accounting with modern data analysis techniques to uncover insights and drive business value.
+  I am a strategic financial professional and Chartered Accountant with over 8 years of experience in financial analysis, audit management, and operational optimization. I specialize in financial governance, utilizing data-driven decision-making to deliver impactful solutions and process improvements.
 </p>
 
 <!-- "Portfolio Sections Overview" has been REMOVED -->
