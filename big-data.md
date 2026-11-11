@@ -23,7 +23,7 @@ description: "Anup Acharya's big data projects, demonstrating expertise in techn
       </div>
     </div>
     <p class="project-objective"><strong>Objective:</strong> To design and implement a scalable, centralized financial data warehouse for a multi-entity hospitality group, enabling comprehensive, real-time reporting and advanced analytics.</p>
-    <span class="project-details-indicator">View in Details →</span>
+    <span class="project-details-indicator" style="color: var(--color-text-muted); cursor: default;">Details Coming Soon</span>
   </div>
 
 
@@ -38,7 +38,7 @@ description: "Anup Acharya's big data projects, demonstrating expertise in techn
         </div>
     </div>
     <p class="project-objective"><strong>Objective:</strong> To develop an analytical platform for comprehensive corporate expense pattern analysis across divisions, identifying significant cost-saving opportunities and enhancing budgetary control.</p>
-    <span class="project-details-indicator">View in Details →</span>
+    <span class="project-details-indicator" style="color: var(--color-text-muted); cursor: default;">Details Coming Soon</span>
   </div>
 
   <div class="project-box no-link">
@@ -52,7 +52,7 @@ description: "Anup Acharya's big data projects, demonstrating expertise in techn
         </div>
     </div>
     <p class="project-objective"><strong>Objective:</strong> To leverage machine learning for customer segmentation and analyze revenue patterns to develop targeted marketing strategies and predict future customer lifetime value (CLV).</p>
-    <span class="project-details-indicator">View in Details →</span>
+    <span class="project-details-indicator" style="color: var(--color-text-muted); cursor: default;">Details Coming Soon</span>
   </div>
 
 </div>

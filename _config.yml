@@ -26,7 +26,7 @@ kramdown:
   syntax_highlighter_opts:
     disable: true # If you're not using Jekyll's default syntax highlighting
 
-theme: null # We are using custom styling
+# theme: null # We are using custom styling (no theme needed; using custom CSS)
 
 # Plugins
 plugins:
@@ -41,5 +41,6 @@ exclude:
   - node_modules/
   - vendor/
   - README.md
+  - Readme.md
   - LICENSE.md # If you have one
-  - "*.Rmd" # Uncomment if Rmd files are ONLY for rendering HTML separately
+  - "*.Rmd" # Rmd files are excluded; they are only for rendering HTML separately

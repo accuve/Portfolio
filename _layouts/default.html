@@ -95,6 +95,7 @@
     menuToggleBtn.addEventListener('click', () => {
       const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true' || false;
       menuToggleBtn.setAttribute('aria-expanded', !isExpanded);
+      menuToggleBtn.classList.toggle('is-active'); // Toggle class on button for icon-bar animation
       primaryNavMenu.classList.toggle('is-active'); 
       document.body.classList.toggle('no-scroll', !isExpanded); // Prevent body scroll when menu is open
     });

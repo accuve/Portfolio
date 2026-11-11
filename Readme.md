@@ -27,14 +27,14 @@ This portfolio website is built and styled using:
 
 ### To View This Portfolio Online:
 
-1.  Simply visit the live site: [My Portfolio](https://accuve.github.io/portfolio/)
+1.  Simply visit the live site: [My Portfolio](https://accuve.github.io/Portfolio/)
 
 ### To Run This Portfolio Locally:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/accuve/portfolio.git
-    cd portfolio
+    git clone https://github.com/accuve/Portfolio.git
+    cd Portfolio
     ```
 2.  **Install Jekyll and Bundler (if not already installed):**
     Refer to the official Jekyll installation guide for your operating system: [https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)
@@ -53,56 +53,49 @@ This portfolio website is built and styled using:
     bundle exec jekyll serve --livereload
     ```
 5.  **Open in your browser:**
-    Go to `http://localhost:4000`
+    Go to `http://localhost:4000/Portfolio/`
 
 ## Project Data Structure
 
-The simplified project structure after recent updates:
-portfolio
-  ├── _includes
-  │      └ _includes-README.md
-  ├── _layouts
-  │      ├── _layouts-README.MD
-  │      └── default.html
-  ├── assets
-  │      ├── css
-  │      │   ├── css-README.md
-  │      │   ├── fonts.css
-  │      │   └── style.css
-  │      ├──fonts
-  │      │   ├── fonts-README.md
-  │      │   ├── fa-brands-400.ttf
-  │      │   ├── fa-brands-400.woff2
-  │      │   ├── fa-regular-400.ttf
-  │      │   ├── fa-regular-400.woff2
-  │      │   ├── fa-solid-900.ttf
-  │      │   └── fa-solid-900.woff2
-  │      └── images
-  │          ├── images-README.md
-  │          ├── Logo_Anup_Acharya.png
-  │          ├── diamond.png
-  │          ├── gmail.png
-  │          └── linkedin.png
-  ├── projects
-  │      ├── projects-README.md
-  │      └── data_analysis
-  │      │    ├──data-analysis-README.md
-  │      │    ├──diamond-project
-  │      │    │    ├──extracted-data-subsets
-  │      │    │    ├──graphs
-  │      │    │    ├──rstudiofiles
-  │      │    │    ├──diamond-project.html
-  │      │    │    └──diamond-project-README.md
-  │      │    └──population-project
-  │      │         └──population-project-README.md
-  ├── .gitignore
-  ├── README.md
-  ├── big-data.md
-  ├── data-analysis.md
-  ├── index.md
-  ├── introduction.md
-  └── kaggle.md
-
+```
+Portfolio/
+├── _layouts/
+│   └── default.html
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   └── images/
+│       ├── Logo_Anup_Acharya.png
+│       ├── diamond.png
+│       ├── gmail.png
+│       ├── linkedin.png
+│       ├── nepse.png
+│       ├── people.png
+│       ├── sales_analysis.png
+│       └── stock-market.png
+├── projects/
+│   └── data-analysis/
+│       ├── bac-stock/
+│       │   └── bac-project.html
+│       ├── diamond-project/
+│       │   └── diamond-project.html
+│       ├── nepse_index_analysis/
+│       │   └── nepse_time_series_forecasting.html
+│       ├── population-project/
+│       │   └── population_project.html
+│       └── store_sales_analysis/
+│           └── sales_analysis.html
+├── .gitignore
+├── _config.yml
+├── Gemfile
+├── Gemfile.lock
+├── Readme.md
+├── big-data.md
+├── data-analysis.md
+├── index.md
+├── introduction.md
+└── kaggle.md
+```
 
 ---
 
@@ -112,7 +105,7 @@ I'm always open to discussing new opportunities, collaborations, or sharing insi
 
 -   **Email:** [longlivenepal48@gmail.com](mailto:longlivenepal48@gmail.com)
 -   **LinkedIn:** [linkedin.com/in/ca-anup-acharya-761737ba](https://www.linkedin.com/in/ca-anup-acharya-761737ba/)
--   **GitHub:** [github.com/longlivenepal48](https://github.com/accuve)
+-   **GitHub:** [github.com/accuve](https://github.com/accuve)
 
 ## License
 

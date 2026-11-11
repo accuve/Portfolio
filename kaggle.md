@@ -12,7 +12,7 @@ description: "Anup Acharya's Kaggle competition entries, showcasing machine lear
 
 <div class="project-container">
 
-  <a href="[YOUR_ACTUAL_LINK_TO_KAGGLE_NOTEBOOK_OR_COMPETITION_FOR_PROJECT_1]" target="_blank" rel="noopener noreferrer" class="project-box-link">
+  <a href="#" class="project-box-link">
     <div class="project-box">
       <span class="project-number">Project I</span>
       <div class="project-header">
@@ -28,7 +28,7 @@ description: "Anup Acharya's Kaggle competition entries, showcasing machine lear
     </div>
   </a>
 
-  <a href="[YOUR_ACTUAL_LINK_TO_KAGGLE_NOTEBOOK_OR_COMPETITION_FOR_PROJECT_2]" target="_blank" rel="noopener noreferrer" class="project-box-link">
+  <a href="#" class="project-box-link">
     <div class="project-box">
     <span class="project-number">Project II</span>
     <div class="project-header">
@@ -44,7 +44,7 @@ description: "Anup Acharya's Kaggle competition entries, showcasing machine lear
     </div>
   </a>
 
-  <a href="[YOUR_LINK_FOR_NEPAL_ECONOMIC_ANALYSIS_IF_ANY]" target="_blank" rel="noopener noreferrer" class="project-box-link"> 
+  <a href="#" class="project-box-link"> 
     <div class="project-box">
     <span class="project-number">Project III</span>
      <div class="project-header">
